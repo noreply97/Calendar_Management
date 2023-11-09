@@ -14,7 +14,7 @@ typedef struct Cell{
 }Cell;
 
 
-struct Cell* createCell(int, int);
+Cell* createCell(int, int);
 int getMaxLevel(Cell*);
 
 #endif //CALENDAR_MANAGEMENT_CELL_H

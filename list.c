@@ -7,6 +7,10 @@
 List* createList(int nbLevels){
     List* list = (List*)malloc(sizeof(List));
     list->max_level = nbLevels;
+    list->heads = (Cell**)malloc(nbLevels*sizeof(Cell*));
+    for(int i=0;i<list->max_level;i++){
+        list->heads[i] = NULL;
+    }
     return list;
 }
 
