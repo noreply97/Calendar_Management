@@ -8,6 +8,10 @@ struct Cell* createCell(int val, int nbLevels){
     struct Cell* cell = (Cell*)malloc(sizeof(Cell));
     cell->value = val;
     cell->max_level = nbLevels;
+    cell->nexts=(Cell**) malloc(nbLevels*sizeof (Cell*));
+    for (int i = 0; i < nbLevels; i++) {
+        cell->nexts[i] = NULL;
+    }
     return cell;
 }
 
