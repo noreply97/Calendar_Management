@@ -8,8 +8,10 @@ int main() {
     cell2 = createCell(1, 2);
     cell3 = createCell(2, 3);
     addCellToHeadList(cell1, list);
-    addCellToList(list, cell2);
+    displayAllCellsFromList(*list);
     addCellToList(list, cell3);
+    displayAllCellsFromList(*list);
+    addCellToList(list, cell2);
     displayAllCellsFromList(*list);
     return 0;
 }
