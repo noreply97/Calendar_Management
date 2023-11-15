@@ -3,4 +3,4 @@ project(Calendar_Management C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(Calendar_Management main.c list.c cell.c)
+add_executable(Calendar_Management main.c list.c cell.c timer.c timer.h)
