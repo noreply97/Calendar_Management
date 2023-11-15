@@ -16,5 +16,8 @@ void displayListCellsFromLevel(List, int);
 void displayAllCellsFromList(List);
 void addCellToList(List*, Cell*);
 void displayAllLevelsAligned(List *list);
+List* createListOfNLevel(int);
+int* createTab(int);
+int rankDivideBy2(int value);
 
 #endif //CALENDAR_MANAGEMENT_LIST_H

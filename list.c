@@ -1,8 +1,11 @@
 //
 // Created by yaelc on 26/10/2023.
 //
-
 #include "list.h"
+
+int getMaxLevelofList(const List *list);
+
+void displayOneLevelAligned(const List *list, int max, int level);
 
 List* createList(int nbLevels){
     List* list = (List*)malloc(sizeof(List));
@@ -37,36 +40,6 @@ void displayListCellsFromLevel(List list, int level){
     }
 }
 
-/*void displayListCellsFromLevel(List list, int level){
-    if(level>=1 && level<=list.max_level) {
-        if(level==1){
-            printf("[list head_%d @-]--", level - 1);
-            Cell* currentCell = list.heads[level-1];
-            while(currentCell!=NULL){
-                printf(">[%d|@-]--",currentCell->value);
-                currentCell=currentCell->nexts[level-1];
-            }
-            printf(">NULL");
-        } else {
-            printf("[list head_%d @-]--", level - 1);
-            Cell* currentCell = list.heads[level-1];
-            Cell* aboveCell=NULL;
-            while(currentCell!=NULL){
-                if((aboveCell != NULL) && (currentCell->value != aboveCell->value)){
-                    printf("---------");
-                } else {
-                    printf(">[%d|@-]--",currentCell->value);
-                }
-                aboveCell=currentCell;
-                currentCell=currentCell->nexts[level-1];
-            }
-            printf(">NULL");
-        }
-    } else{
-        return;
-    }
-}*/
-
 void displayAllCellsFromList(List list){
     for (int i = 0; i <= list.max_level; i++) {
         displayListCellsFromLevel(list, i);
@@ -74,31 +47,43 @@ void displayAllCellsFromList(List list){
     }
 }
 
-void displayAllLevelsAligned(List *list) {
+/*void displayAllLevelsAligned(List *list) {
+    int max = getMaxLevelofList(list);
+    for (int level = 0; level < list->max_level; ++level) {
+        displayOneLevelAligned(list, max, level);
+    }
+}
+
+void displayOneLevelAligned(const List *list, int max, int level) {
+    printf("[list head_%d @-]--", level);
+    Cell *current_I = list->heads[level];
+    Cell *current_0 = list->heads[0];
+    while (current_I != NULL) {
+        if (current_I == current_0) {
+            printf(">[%d|@-]--", current_I->value);
+            current_I = current_I->nexts[level];
+        } else {
+            printf("--------------");
+            current_I = current_I->nexts[level];
+        }
+    }
+    printf(">NULL \n");
+}
+
+int getMaxLevelofList(const List *list) {
     int max = 0;
-    for (int i = 0; i < list->max_level; ++i) {
-        Cell *current = list->heads[i];
+    for (int level = 0; level < list->max_level; ++level) {
+        Cell *current = list->heads[level];
         while (current != NULL) {
             int value= getMaxLevel(current);
             if (value > max) {
                 max = value;
             }
-            current = current->nexts[i];
+            current = current->nexts[level];
         }
     }
-    for (int i = 0; i < list->max_level; ++i) {
-        printf("[list head_%d @-]--", i);
-        Cell *current = list->heads[i];
-        while (current != NULL) {
-            printf(">[%d|@-]--", current->value);
-            current = current->nexts[i];
-        }
-        if ((i!=0)&&(list->heads[i]->max_level<max)) {
-            printf("--------------");
-        }
-        printf(">NULL \n");
-    }
-}
+    return max;
+}*/
 
 
 void addCellToList(List *list, Cell* cell) {
@@ -124,7 +109,6 @@ void addCellToList(List *list, Cell* cell) {
         current = list->heads[i];
         prev = NULL;
 
-        // Parcourir la liste au niveau i
         while ((current != NULL) && ((current->value) < (cell->value))) {
             prev = current;
             current = current->nexts[i];
@@ -138,3 +122,37 @@ void addCellToList(List *list, Cell* cell) {
         }
     }
 }
+
+int rankDivideBy2(int value) {
+    int result;
+    while((value%2==0)&&(value!=0)){
+        result++;
+        value=value/2;
+    }
+    return result;
+}
+
+int* createTab(int n){
+    int* levels=(int*)malloc(sizeof (int));
+    int nbElem=(2^n)-1;
+    for(int i=0;i<nbElem;i++){
+        levels[i]= rankDivideBy2(i);
+    }
+    return levels;
+}
+
+List* createListOfNLevel(int n){
+    while(n<=0){
+        printf("N doit etre supérieur à 0 !");
+        scanf("%d", &n);
+    }
+    List* list = createList(n);
+    int* levels = createTab(n);
+    for(int i=0;i<n;i++){
+        Cell* cell= createCell(i+1, levels[i]);
+        addCellToList(list, cell);
+    }
+    return list;
+}
+
+

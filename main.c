@@ -2,14 +2,12 @@
 #include "list.h"
 
 int main() {
-    List* list = createList(3);
-    Cell *cell1, *cell2, *cell3, *cell4 ;
-    cell1 = createCell(0, 1);
-    cell2 = createCell(1, 2);
-    cell3 = createCell(2, 3);
-    addCellToHeadList(cell1, list);
-    addCellToList(list, cell2);
-    addCellToList(list, cell3);
-    displayAllCellsFromList(*list);
+    int n=7;
+    int* tab= createTab(3);
+    for(int i=0;i<7;i++){
+        printf("%d \n",tab[i]);
+    }
+    //List* list = createListOfNLevel(7);
+    //displayAllCellsFromList(*list);
     return 0;
 }
