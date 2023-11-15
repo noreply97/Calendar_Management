@@ -15,6 +15,4 @@ struct Cell* createCell(int val, int nbLevels){
     return cell;
 }
 
-int getMaxLevel(Cell* cell){
-    return cell->max_level;
-}
+
