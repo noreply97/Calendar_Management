@@ -14,6 +14,7 @@ List* createList(int);
 void addCellToHeadList(Cell*, List*);
 void displayListCellsFromLevel(List, int);
 void displayAllCellsFromList(List);
-void addCellToListAt(List*, int);
+void addCellToList(List*, Cell*);
+void displayAllLevelsAligned(List *list);
 
 #endif //CALENDAR_MANAGEMENT_LIST_H
