@@ -3,10 +3,6 @@
 //
 #include "list.h"
 
-int getMaxLevelofList(const List *list);
-
-void displayOneLevelAligned(const List *list, int max, int level);
-
 List* createList(int nbLevels){
     List* list = (List*)malloc(sizeof(List));
     list->max_level = nbLevels;
@@ -123,36 +119,17 @@ void addCellToList(List *list, Cell* cell) {
     }
 }
 
-int rankDivideBy2(int value) {
-    int result;
-    while((value%2==0)&&(value!=0)){
-        result++;
-        value=value/2;
-    }
-    return result;
-}
-
-int* createTab(int n){
-    int* levels=(int*)malloc(sizeof (int));
-    int nbElem=(2^n)-1;
-    for(int i=0;i<nbElem;i++){
-        levels[i]= rankDivideBy2(i);
-    }
-    return levels;
-}
-
 List* createListOfNLevel(int n){
     while(n<=0){
-        printf("N doit etre supérieur à 0 !");
+        printf("N must be bigger than 0 !");
         scanf("%d", &n);
     }
     List* list = createList(n);
     int* levels = createTab(n);
-    for(int i=0;i<n;i++){
-        Cell* cell= createCell(i+1, levels[i]);
+    for(int i=0;i<((1 << n)-1);i++){
+        Cell* cell = createCell(i+1, levels[i]+1);
         addCellToList(list, cell);
     }
     return list;
 }
-
 

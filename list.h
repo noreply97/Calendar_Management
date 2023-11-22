@@ -2,6 +2,8 @@
 // Created by yaelc on 26/10/2023.
 //
 #include "cell.h"
+#include "tab.h"
+
 #ifndef CALENDAR_MANAGEMENT_LIST_H
 #define CALENDAR_MANAGEMENT_LIST_H
 
@@ -17,7 +19,9 @@ void displayAllCellsFromList(List);
 void addCellToList(List*, Cell*);
 void displayAllLevelsAligned(List *list);
 List* createListOfNLevel(int);
-int* createTab(int);
-int rankDivideBy2(int value);
+void classicSearch(List*, int);
+void searchAtLevelN(List*, int, int);
+void searchFromLevelN(List*, int, int);
+int isAtLevelN(List* list, int val, int level);
 
 #endif //CALENDAR_MANAGEMENT_LIST_H

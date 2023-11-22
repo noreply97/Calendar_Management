@@ -1,13 +1,8 @@
-#include <stdio.h>
-#include "list.h"
+#include "research.h"
 
 int main() {
-    int n=7;
-    int* tab= createTab(3);
-    for(int i=0;i<7;i++){
-        printf("%d \n",tab[i]);
-    }
-    //List* list = createListOfNLevel(7);
-    //displayAllCellsFromList(*list);
+    List* list = createListOfNLevel(3);
+    displayAllCellsFromList(*list);
+    searchFromLevelN(list, 6, 2);
     return 0;
 }
