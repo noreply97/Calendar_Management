@@ -17,17 +17,6 @@ void classicSearch(List* list, int val) {  // Recherche au niveau 0
     }
 }
 
-void searchAtLevelN(List* list, int val, int level) {  // Recherche dans tous les niveaux en partant du plus haut
-    Cell* temp = list->heads[level];
-    while (temp != NULL && temp->value != val) {
-        temp = temp->nexts[level];
-    }
-    if (temp != NULL && temp->value == val) {
-        printf("%d found at level %d\n", val,level);
-    } else {
-        printf("%d not found at level %d\n", val,level);
-    }
-}
 int isAtLevelN(List* list, int val, int level) {  // Recherche dans tous les niveaux en partant du plus haut
     Cell* temp = list->heads[level];
     while (temp != NULL && temp->value != val) {

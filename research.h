@@ -6,7 +6,7 @@
 #define CALENDAR_MANAGEMENT_RESEARCH_H
 
 void classicSearch(List*, int);
-void searchAtLevelN(List*, int, int);
 int isAtLevelN(List* list, int val, int level);
+void searchFromLevelN(List*, int, int);
 
 #endif //CALENDAR_MANAGEMENT_RESEARCH_H
