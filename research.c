@@ -44,3 +44,23 @@ void searchFromLevelN(List* list, int val, int level){
         printf("Level input is too high");
     }
 }
+
+/*
+void optimalSearchFromLevelN(List* list, int val, int level){
+    if(level<=list->max_level) {
+        if (level == 0) {
+            classicSearch(list, val);
+        } else {
+            if(val<list->heads[level]->value){
+                optimalSearchFromLevelN(list, val, level-1);
+            }else if(val>list->heads[level]->value){
+                optimalSearchFromLevelN()
+            }
+            else{
+                printf("%d found at level %d", val, level);
+            }
+        }
+    }else{
+        printf("Level input is too high");
+    }
+}*/

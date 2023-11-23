@@ -18,23 +18,30 @@ typedef struct Date{
     int year;
 } Date;
 
-typedef struct hour{
+typedef struct Time{
     int hour;
     int minutes;
-} Hour;
+} Time;
 
-typedef struct meeting{
+typedef struct Meeting{
     Date date;
-    Hour duration;
-    Hour hourMeeting;
+    Time duration;
+    Time hourMeeting;
     char* topic;
 }Meeting;
 
-char* scanString(void);
-
-typedef struct agendaEntry {
+typedef struct AgendaEntry {
     Contact contact;
     Meeting* meetings;
 } AgendaEntry;
+
+char* scanString(void);
+char* contactDatasToSimpleString(char*);
+Contact* createContact(char*, char*);
+Date* createDate(int, int, int);
+Time* createHour(int, int);
+Meeting* createMeeting(Date, Time, Time, char*);
+AgendaEntry* createAgendaEntry(Contact, Meeting*, int);
+
 
 #endif //CALENDAR_MANAGEMENT_CONTACTANDRDV_H
