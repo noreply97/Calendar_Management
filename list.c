@@ -101,20 +101,20 @@ void addCellToList(List *list, Cell* cell) {
         cell->nexts[0] = current;
     }
 
-    for (int i = 1; i < cell->max_level; i++) {
-        current = list->heads[i];
+    for (int currentLevel = 1; currentLevel < cell->max_level; currentLevel++) {
+        current = list->heads[currentLevel];
         prev = NULL;
 
         while ((current != NULL) && ((current->value) < (cell->value))) {
             prev = current;
-            current = current->nexts[i];
+            current = current->nexts[currentLevel];
         }
         if (prev == NULL) {
-            cell->nexts[i] = list->heads[i];
-            list->heads[i] = cell;
+            cell->nexts[currentLevel] = list->heads[currentLevel];
+            list->heads[currentLevel] = cell;
         } else {
-            prev->nexts[i] = cell;
-            cell->nexts[i] = current;
+            prev->nexts[currentLevel] = cell;
+            cell->nexts[currentLevel] = current;
         }
     }
 }
@@ -130,6 +130,7 @@ List* createListOfNLevel(int n){
         Cell* cell = createCell(i+1, levels[i]+1);
         addCellToList(list, cell);
     }
+    free(levels);
     return list;
 }
 
