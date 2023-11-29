@@ -1,7 +1,9 @@
 #include "contactandrdv.h"
 
 int main() {
-    List *list = createListOfNLevel(20);
-    displayAllCellsFromList(*list);
+    char *firstname = scanString();
+    char *lastname = scanString();
+    char *result = contactDatasToSimpleString(firstname, lastname);
+    printf("%s", result);
     return 0;
 }

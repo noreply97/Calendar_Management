@@ -3,40 +3,40 @@
 //
 #include "list.h"
 
-List* createList(int nbLevels){
-    List* list = (List*)malloc(sizeof(List));
+List *createList(int nbLevels) {
+    List *list = (List *) malloc(sizeof(List));
     list->max_level = nbLevels;
-    list->heads = (Cell**)malloc(nbLevels*sizeof(Cell*));
-    for(int i=0;i<list->max_level;i++){
+    list->heads = (Cell **) malloc(nbLevels * sizeof(Cell *));
+    for (int i = 0; i < list->max_level; i++) {
         list->heads[i] = NULL;
     }
     return list;
 }
 
-void addCellToHeadList(Cell* cell, List* list){
-    for(int i=0; i<cell->max_level;i++){
+void addCellToHeadList(Cell *cell, List *list) {
+    for (int i = 0; i < cell->max_level; i++) {
         cell->nexts[i] = list->heads[i];
     }
-    for(int i=0; i<cell->max_level;i++){
+    for (int i = 0; i < cell->max_level; i++) {
         list->heads[i] = cell;
     }
 }
 
-void displayListCellsFromLevel(List list, int level){
-    if(level>=1 && level<=list.max_level) {
+void displayListCellsFromLevel(List list, int level) {
+    if (level >= 1 && level <= list.max_level) {
         printf("[list head_%d @-]-->", level - 1);
-        Cell* currentCell = list.heads[level-1];
-        while(currentCell!=NULL){
-            printf("[%d|@-]-->",currentCell->value);
-            currentCell=currentCell->nexts[level-1];
+        Cell *currentCell = list.heads[level - 1];
+        while (currentCell != NULL) {
+            printf("[%d|@-]-->", currentCell->value);
+            currentCell = currentCell->nexts[level - 1];
         }
         printf("NULL");
-    } else{
+    } else {
         return;
     }
 }
 
-void displayAllCellsFromList(List list){
+void displayAllCellsFromList(List list) {
     for (int i = 0; i <= list.max_level; i++) {
         displayListCellsFromLevel(list, i);
         printf("\n");
@@ -119,19 +119,17 @@ void addCellToList(List *list, Cell* cell) {
     }
 }
 
-List* createListOfNLevel(int n){
-    while(n<=0){
+List *createListOfNLevel(int n) {
+    while (n <= 0) {
         printf("N must be bigger than 0 !");
         scanf("%d", &n);
     }
-    int* levels = createTab(n);
-    List* list = createList(n);
-    for(int i=0;i<((1 << n)-1);i++){
-        Cell* cell = createCell(i+1, levels[i]+1);
+    int *levels = createTab(n);
+    List *list = createList(n);
+    for (int i = 0; i < ((1 << n) - 1); i++) {
+        Cell *cell = createCell(i + 1, levels[i] + 1);
         addCellToList(list, cell);
     }
-    printf("%d\n", levels[0]);
-    fflush(stdout);
     free(levels);
     return list;
 }
