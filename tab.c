@@ -5,10 +5,10 @@
 #include <stdlib.h>
 
 int rankDivideBy2(int value) {
-    int result=0;
-    while((value%2==0)&&(value!=0)){
+    int result = 0;
+    while ((value % 2 == 0) && (value != 0)) {
         result++;
-        value=value/2;
+        value = value / 2;
     }
     return result;
 }

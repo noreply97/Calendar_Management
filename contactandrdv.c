@@ -15,8 +15,15 @@ char *scanString(void) {
     return result;
 }
 
-char* contactDatasToSimpleString(char* name){
-    int i=0;
-    char *firstName = NULL, *lastName = NULL;
-    char* space = " ";
+char *contactDatasToSimpleString(char *firstname, char *lastname) {
+    if (firstname == NULL || lastname == NULL) {
+        return NULL;
+    }
+    size_t length = strlen(firstname) + strlen(lastname) + 2;
+    char *result = (char *) malloc(length * sizeof(char));
+    if (result == NULL) {
+        return NULL;
+    }
+    snprintf(result, length, "%s_%s", lastname, firstname);
+    return result;
 }

@@ -17,15 +17,19 @@ void classicSearch(List *list, int val) {  // Recherche au niveau 0
     }
 }
 
-int isAtLevelN(List* list, int val, int level) {  // Recherche dans tous les niveaux en partant du plus haut
-    Cell* temp = list->heads[level];
-    while (temp != NULL && temp->value != val) {
-        temp = temp->nexts[level];
-    }
-    if (temp != NULL && temp->value == val) {
-        return 1;
+int isAtLevelN(List *list, int val, int level) {  // Recherche dans tous les niveaux en partant du plus haut
+    if (level <= list->max_level) {
+        Cell *temp = list->heads[level - 1];
+        while (temp != NULL && temp->value != val) {
+            temp = temp->nexts[level - 1];
+        }
+        if (temp != NULL && temp->value == val) {
+            return 1;
+        } else {
+            return 0;
+        }
     } else {
-        return 0;
+        printf("Level input is too high");
     }
 }
 
@@ -45,22 +49,27 @@ void searchFromLevelN(List *list, int val, int level) {
     }
 }
 
-/*
-void optimalSearchFromLevelN(List* list, int val, int level){
-    if(level<=list->max_level) {
-        if (level == 0) {
-            classicSearch(list, val);
+void optimalSearchFromLevelMax(List *list, int val) {
+    unsigned short alwaysAtHead = 1;
+    Cell *temp = list->heads[list->max_level - 1];
+    while (list->max_level > 0 && temp->value != val) {
+        if (temp->nexts[list->max_level - 1] == NULL || temp->nexts[list->max_level - 1]->value > val) {
+            list->max_level--;
+            if (alwaysAtHead) {
+                if ((temp->value > val)) {
+                    temp = list->heads[list->max_level - 1];
+                } else {
+                    alwaysAtHead = 0;
+                }
+            }
         } else {
-            if(val<list->heads[level]->value){
-                optimalSearchFromLevelN(list, val, level-1);
-            }else if(val>list->heads[level]->value){
-                optimalSearchFromLevelN()
-            }
-            else{
-                printf("%d found at level %d", val, level);
-            }
+            temp = temp->nexts[list->max_level - 1];
+            alwaysAtHead = 0;
         }
-    }else{
-        printf("Level input is too high");
     }
-}*/
+    if (list->max_level <= 0) {
+        //printf("%d not found in any level\n", val);
+    } else {
+        //printf("%d found at level %d", val, list->max_level);
+    }
+}

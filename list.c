@@ -43,46 +43,7 @@ void displayAllCellsFromList(List list) {
     }
 }
 
-/*void displayAllLevelsAligned(List *list) {
-    int max = getMaxLevelofList(list);
-    for (int level = 0; level < list->max_level; ++level) {
-        displayOneLevelAligned(list, max, level);
-    }
-}
-
-void displayOneLevelAligned(const List *list, int max, int level) {
-    printf("[list head_%d @-]--", level);
-    Cell *current_I = list->heads[level];
-    Cell *current_0 = list->heads[0];
-    while (current_I != NULL) {
-        if (current_I == current_0) {
-            printf(">[%d|@-]--", current_I->value);
-            current_I = current_I->nexts[level];
-        } else {
-            printf("--------------");
-            current_I = current_I->nexts[level];
-        }
-    }
-    printf(">NULL \n");
-}
-
-int getMaxLevelofList(const List *list) {
-    int max = 0;
-    for (int level = 0; level < list->max_level; ++level) {
-        Cell *current = list->heads[level];
-        while (current != NULL) {
-            int value= getMaxLevel(current);
-            if (value > max) {
-                max = value;
-            }
-            current = current->nexts[level];
-        }
-    }
-    return max;
-}*/
-
-
-void addCellToList(List *list, Cell* cell) {
+void addCellToList(List *list, Cell *cell) {
     if (list->heads == NULL) {
         addCellToHeadList(cell, list);
         return;
