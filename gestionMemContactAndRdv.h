@@ -5,12 +5,6 @@
 #ifndef CALENDAR_MANAGEMENT_GESTIONMEMCONTACTANDRDV_H
 #define CALENDAR_MANAGEMENT_GESTIONMEMCONTACTANDRDV_H
 
-
-typedef struct Contact {
-    char *first_name;
-    char *last_name;
-} Contact;
-
 typedef struct Date {
     int day;
     int month;
@@ -29,9 +23,20 @@ typedef struct Meeting {
     char *topic;
 } Meeting;
 
+typedef struct MeetingNode {
+    Meeting meeting;
+    struct MeetingNode *next;
+} meetingNode;
+
+typedef struct Contact {
+    char *first_name;
+    char *last_name;
+    struct MeetingNode meetings;
+} Contact;
+
 typedef struct AgendaEntry {
     Contact contact;
-    Meeting **meetings;
+    struct AgendaEntry *next;
 } AgendaEntry;
 
 Contact *createContact(char *, char *); // Alloue de la mémoire dynamiquement à une variable contact
