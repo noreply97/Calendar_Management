@@ -1,9 +1,6 @@
 #include "contactandrdv.h"
 
 int main() {
-    char *firstname = scanString();
-    char *lastname = scanString();
-    char *result = contactDatasToSimpleString(firstname, lastname);
-    printf("%s", result);
+    complexityTest(7, 18);
     return 0;
 }

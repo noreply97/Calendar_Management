@@ -5,8 +5,8 @@
 #include "cell.h"
 #include <stdlib.h>
 
-Cell* createCell(int val, int nbLevels){
-    Cell* cell = (Cell*)malloc(sizeof(Cell));
+Cell *createCell(int val, int nbLevels) {
+    Cell *cell = (Cell *) malloc(sizeof(Cell));
     cell->value = val;
     cell->max_level = nbLevels;
     cell->nexts=(Cell**) malloc(nbLevels*sizeof (Cell*));
@@ -16,4 +16,8 @@ Cell* createCell(int val, int nbLevels){
     return cell;
 }
 
+void deleteCell(Cell *cell) {
+    free(cell->nexts);
+    free(cell);
+}
 

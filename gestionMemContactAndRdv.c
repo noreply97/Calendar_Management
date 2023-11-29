@@ -61,6 +61,9 @@ void deleteAgenda(AgendaEntry *agenda) {
 AgendaEntry *createAgendaEntry(Contact contact, Meeting *meetings, int nbMeetings) {
     AgendaEntry *agendaEntry = (AgendaEntry *) malloc(sizeof(AgendaEntry));
     agendaEntry->contact = contact;
-    agendaEntry->meetings = (Meeting *) malloc(nbMeetings * sizeof(Meeting));
+    agendaEntry->meetings = (Meeting **) malloc(nbMeetings * sizeof(Meeting *));
+    for (int i = 0; i < nbMeetings; i++) {
+        agendaEntry->meetings[i] = NULL;
+    }
     return agendaEntry;
 }

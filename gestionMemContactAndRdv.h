@@ -31,27 +31,27 @@ typedef struct Meeting {
 
 typedef struct AgendaEntry {
     Contact contact;
-    Meeting *meetings;
+    Meeting **meetings;
 } AgendaEntry;
 
-Contact *createContact(char *, char *);
+Contact *createContact(char *, char *); // Alloue de la mémoire dynamiquement à une variable contact
 
-Date *createDate(int, int, int);
+Date *createDate(int, int, int); // Alloue de la mémoire dynamiquement à une variable date
 
-Time *createHour(int, int);
+Time *createHour(int, int); // Alloue de la mémoire dynamiquement à une variable int
 
-Meeting *createMeeting(Date, Time, Time, char *);
+Meeting *createMeeting(Date, Time, Time, char *); // Alloue de la mémoire dynamiquement à une variable meeting
 
-void deleteContact(Contact *);
+AgendaEntry *createAgendaEntry(Contact, Meeting *, int); // Alloue de la mémoire dynamiquement à une variable agenda
 
-void deleteDate(Date *);
+void deleteContact(Contact *); // Libère la mémoire allouée à une variable contact
 
-void deleteHour(Time *);
+void deleteDate(Date *); // Libère la mémoire allouée à une variable date
 
-void deleteMeetings(Meeting *);
+void deleteHour(Time *); // Libère la mémoire allouée à une variable hour
 
-void deleteAgenda(AgendaEntry *);
+void deleteMeetings(Meeting *); // Libère la mémoire allouée à une variable meeting
 
-AgendaEntry *createAgendaEntry(Contact, Meeting *, int);
+void deleteAgenda(AgendaEntry *); // Libère la mémoire allouée à une variable agenda
 
 #endif //CALENDAR_MANAGEMENT_GESTIONMEMCONTACTANDRDV_H

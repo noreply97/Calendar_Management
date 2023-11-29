@@ -7,13 +7,15 @@
 #ifndef CALENDAR_MANAGEMENT_CELL_H
 #define CALENDAR_MANAGEMENT_CELL_H
 
-typedef struct Cell{
+typedef struct Cell {
     int value;
     int max_level;
-    struct Cell** nexts;
-}Cell;
+    struct Cell **nexts;
+} Cell;
 
 
-Cell* createCell(int, int);
+Cell *createCell(int, int); // Alloue dynamiquement de la mémoire à une cellule à partir d'une valeur donnée
+
+void deleteCell(Cell *cell); // Libère la mémoire allouée à la cellule
 
 #endif //CALENDAR_MANAGEMENT_CELL_H
