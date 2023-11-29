@@ -12,7 +12,6 @@ int isAtLevelN(List *, int, int); // Détermine si une valeur est présente à u
 
 void searchFromLevelN(List *, int, int); // Recherche une valeur dans la liste à un niveau donnée
 
-void optimalSearchFromLevelN(List *, int,
-                             int); // Recherche dichotomique de la valeur dans la liste à partir d'un niveaux données
+void optimalSearchFromLevelMax(List *, int); // Recherche dichotomique de la valeur dans la liste à partir du niveau max
 
 #endif //CALENDAR_MANAGEMENT_RESEARCH_H
