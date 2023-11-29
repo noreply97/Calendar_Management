@@ -18,10 +18,6 @@ char* contactDatasToSimpleString(char* name){
     int i=0;
     char *firstName = NULL, *lastName = NULL;
     char* space = " ";
-    while(name[i]){
-        if(not space)
-        lastName[i] = name[i];
-    }
 }
 
 Contact* createContact(char* first_name, char* last_name){

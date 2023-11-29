@@ -36,7 +36,7 @@ typedef struct AgendaEntry {
 } AgendaEntry;
 
 char* scanString(void);
-char* contactDatasToSimpleString(char*);
+char* contactDatasToSimpleString(char*, char*);
 Contact* createContact(char*, char*);
 Date* createDate(int, int, int);
 Time* createHour(int, int);

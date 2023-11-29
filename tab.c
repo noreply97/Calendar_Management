@@ -13,11 +13,11 @@ int rankDivideBy2(int value) {
     return result;
 }
 
-int* createTab(int n){
-    int* levels=(int*)malloc(sizeof(int));;
-    int nbElem=(1<<n)-1;
-    for(int i=0;i<nbElem;i++){
-        levels[i]= rankDivideBy2(i+1);
+int *createTab(int n) {
+    int nbElem = (1 << n) - 1;
+    int *levels = (int *) malloc(nbElem * sizeof(int));
+    for (int i = 0; i < nbElem; i++) {
+        levels[i] = rankDivideBy2(i + 1);
     }
     return levels;
 }

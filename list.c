@@ -124,12 +124,14 @@ List* createListOfNLevel(int n){
         printf("N must be bigger than 0 !");
         scanf("%d", &n);
     }
-    List* list = createList(n);
     int* levels = createTab(n);
+    List* list = createList(n);
     for(int i=0;i<((1 << n)-1);i++){
         Cell* cell = createCell(i+1, levels[i]+1);
         addCellToList(list, cell);
     }
+    printf("%d\n", levels[0]);
+    fflush(stdout);
     free(levels);
     return list;
 }
