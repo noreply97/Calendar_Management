@@ -1,6 +1,7 @@
 #include "contactandrdv.h"
 
 int main() {
-    complexityTest(7, 17);
+    Meeting *meeting = createMeeting();
+    displayMeeting(meeting);
     return 0;
 }

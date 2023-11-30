@@ -5,6 +5,8 @@
 #ifndef CALENDAR_MANAGEMENT_GESTIONMEMCONTACTANDRDV_H
 #define CALENDAR_MANAGEMENT_GESTIONMEMCONTACTANDRDV_H
 
+char *scanStringGestion(); // Permet la saisie d'une chaîne de caractère
+
 typedef struct Date {
     int day;
     int month;
@@ -17,9 +19,9 @@ typedef struct Time {
 } Time;
 
 typedef struct Meeting {
-    Date date;
-    Time duration;
-    Time hourMeeting;
+    Date *date;
+    Time *duration;
+    Time *hourMeeting;
     char *topic;
 } Meeting;
 
@@ -31,7 +33,7 @@ typedef struct MeetingNode {
 typedef struct Contact {
     char *first_name;
     char *last_name;
-    struct MeetingNode meetings;
+    struct MeetingNode *meetingList;
 } Contact;
 
 typedef struct AgendaEntry {
@@ -39,15 +41,15 @@ typedef struct AgendaEntry {
     struct AgendaEntry *next;
 } AgendaEntry;
 
-Contact *createContact(char *, char *); // Alloue de la mémoire dynamiquement à une variable contact
+Contact *createContact(); // Alloue de la mémoire dynamiquement à une variable contact
 
-Date *createDate(int, int, int); // Alloue de la mémoire dynamiquement à une variable date
+Date *createDate(); // Alloue de la mémoire dynamiquement à une variable date
 
-Time *createHour(int, int); // Alloue de la mémoire dynamiquement à une variable int
+Time *createHour(); // Alloue de la mémoire dynamiquement à une variable int
 
-Meeting *createMeeting(Date, Time, Time, char *); // Alloue de la mémoire dynamiquement à une variable meeting
+Meeting *createMeeting(); // Alloue de la mémoire dynamiquement à une variable meeting
 
-AgendaEntry *createAgendaEntry(Contact, Meeting *, int); // Alloue de la mémoire dynamiquement à une variable agenda
+AgendaEntry *createAgendaEntry(Contact); // Alloue de la mémoire dynamiquement à une variable agenda
 
 void deleteContact(Contact *); // Libère la mémoire allouée à une variable contact
 
@@ -56,6 +58,8 @@ void deleteDate(Date *); // Libère la mémoire allouée à une variable date
 void deleteHour(Time *); // Libère la mémoire allouée à une variable hour
 
 void deleteMeetings(Meeting *); // Libère la mémoire allouée à une variable meeting
+
+void deleteMeetingNode(meetingNode *);
 
 void deleteAgenda(AgendaEntry *); // Libère la mémoire allouée à une variable agenda
 

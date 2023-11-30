@@ -2,7 +2,7 @@
 // Created by alban on 22/11/2023.
 //
 #include <stdlib.h>
-#include "stdio.h"
+#include <stdio.h>
 #include <string.h>
 #include <ctype.h>
 #include "contactandrdv.h"
@@ -29,32 +29,51 @@ char *contactDatasToSimpleString(char *firstname, char *lastname) {
 }
 
 void rechercherContact(AgendaEntry *agenda, char *partialName, int niveau) {
+
     if (agenda == NULL) {
-        printf("Aucun contact trouvé.\n");
+        printf("No contact found.\n");
         return;
     }
-
-    // Comparer la première lettre du nom du contact avec la lettre actuelle
+    char *fullname = contactDatasToSimpleString(agenda->contact.first_name, agenda->contact.last_name);
     char currentLetter = partialName[niveau];
-    char *contactName = agenda->contact.nom;
-
+    char *contactName = agenda->contact.last_name;
     if (contactName[niveau] == currentLetter) {
-        // Si on atteint la 3ème lettre, afficher le nom complet
         if (niveau == 2) {
-            printf("%s %s\n", agenda->contact.nom, agenda->contact.prenom);
+            printf("%s\n", fullname);
+            exit(0);
         }
-        // Passer au niveau suivant
+        free(fullname);
         rechercherContact(agenda, partialName, niveau + 1);
     } else {
-        // Si la lettre ne correspond pas, passer au contact suivant
-        rechercherContact(agenda->suivant, partialName, 0);
+        free(fullname);
+        rechercherContact(agenda->next, partialName, 0);
     }
 }
 
-// Fonction principale pour rechercher un contact
 void rechercheContactMenu(AgendaEntry *agenda) {
-    printf("Entrez le nom à rechercher (3 lettres minimum) : ");
+    printf("Entrez le nom a rechercher (3 lettres minimum) : ");
     char *partialName = scanString();
     rechercherContact(agenda, partialName, 0);
-    free(partialName); // Libérer la mémoire allouée pour la saisie
+    free(partialName);
+}
+
+void displayMeeting(Meeting *meeting) {
+    printf("Date of the meeting : %d/%d/%d. \n", meeting->date->day, meeting->date->month, meeting->date->year);
+    printf("Hour of the meeting : %d:%d. \n", meeting->hourMeeting->hour, meeting->hourMeeting->minutes);
+    if (meeting->duration->hour == 1) {
+        printf("Duration of the meeting : %d hour and %d minutes. \n", meeting->duration->hour,
+               meeting->duration->minutes);
+    } else {
+        printf("Duration of the meeting : %d hours and %d minutes. \n", meeting->duration->hour,
+               meeting->duration->minutes);
+    }
+    printf("Topic of the meeting : %s.\n", meeting->topic);
+}
+
+void displayMeetingListOfContact(Contact *contact) {
+    meetingNode *currentNode = contact->meetingList;
+    while (currentNode != NULL) {
+        displayMeeting(&currentNode->meeting);
+        currentNode = currentNode->next;
+    }
 }

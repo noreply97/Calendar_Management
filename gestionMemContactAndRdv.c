@@ -2,40 +2,95 @@
 // Created by alban on 29/11/2023.
 //
 #include <stdlib.h>
+#include <stdio.h>
+#include "string.h"
 #include "gestionMemContactAndRdv.h"
 
-Contact *createContact(char *first_name, char *last_name) {
+char *scanStringGestion() {
+    char buffer[256];
+    fgets(buffer, sizeof(buffer), stdin);
+    buffer[strcspn(buffer, "\n")] = '\0';
+    char *result = strdup(buffer);
+    return result;
+}
+
+Contact *createContact() {
     Contact *contact = (Contact *) malloc(sizeof(Contact));
-    contact->first_name = first_name;
-    contact->last_name = last_name;
+    printf("Please enter your first name : ");
+    contact->first_name = scanStringGestion();
+    printf("Please enter your last name : ");
+    contact->last_name = scanStringGestion();
+    contact->meetingList = NULL;
     return contact;
 }
 
-Date *createDate(int day, int month, int year) {
+Date *createDate() {
     Date *date = (Date *) malloc(sizeof(Date));
-    date->day = day;
-    date->month = month;
-    date->year = year;
+    printf("Please enter the day of your meeting : ");
+    scanf("%d", &date->day);
+    printf("\n");
+    while ((date->day < 0) || (date->day > 31)) {
+        printf("Please enter the day of your meeting between 0 and 31 : ");
+        scanf("%d", &date->day);
+        printf("\n");
+    }
+    printf("Please enter the month of your meeting : ");
+    scanf("%d", &date->month);
+    printf("\n");
+    while ((date->month < 0) || (date->month > 12)) {
+        printf("Please enter the month of your meeting between 0 and 12 : ");
+        scanf("%d", &date->month);
+        printf("\n");
+    }
+    printf("Please enter the year of your meeting : ");
+    scanf("%d", &date->year);
+    printf("\n");
+    while (date->year < 2023) {
+        printf("Please enter the year beyond 2023 : ");
+        scanf("%d", &date->year);
+        printf("\n");
+    }
     return date;
 }
 
-Time *createHour(int hour, int minutes) {
+Time *createHour() {
     Time *time = (Time *) malloc(sizeof(Time));
-    time->hour = hour;
-    time->minutes = minutes;
+    printf("Please enter the hour : ");
+    scanf("%d", &time->hour);
+    printf("\n");
+    while ((time->hour > 24) || (time->hour < 0)) {
+        printf("Please enter the hour between 0 and 24 : ");
+        scanf("%d", &time->hour);
+        printf("\n");
+    }
+    printf("Please enter the minutes : ");
+    scanf("%d", &time->minutes);
+    printf("\n");
+    while ((time->minutes > 60) || (time->minutes < 0)) {
+        printf("Please enter the minutes between 0 et 60 : ");
+        scanf("%d", &time->minutes);
+        printf("\n");
+    }
     return time;
 }
 
-Meeting *createMeeting(Date date, Time duration, Time hourMeeting, char *topic) {
+Meeting *createMeeting() {
     Meeting *meeting = (Meeting *) malloc(sizeof(Meeting));
-    meeting->date = date;
-    meeting->duration = duration;
-    meeting->hourMeeting = hourMeeting;
+    meeting->date = createDate();
+    printf("You will enter the duration of the meeting.\n");
+    meeting->duration = createHour();
+    printf("You will enter the hour of the start of the meeting .\n");
+    meeting->hourMeeting = createHour();
+    printf("Enter the topic of the meeting in one word : \n");
+    meeting->topic = (char *) malloc(256 * sizeof(char));
+    char *topic = scanStringGestion();
     meeting->topic = topic;
     return meeting;
 }
 
 void deleteContact(Contact *contact) {
+    deleteMeetingNode(contact->meetingList);
+    contact->meetingList->next = NULL;
     free(contact);
 }
 
@@ -48,22 +103,26 @@ void deleteHour(Time *time) {
 }
 
 void deleteMeetings(Meeting *meeting) {
-    deleteDate(&meeting->date);
-    deleteHour(&meeting->duration);
-    deleteHour(&meeting->hourMeeting);
+    deleteDate(meeting->date);
+    deleteHour(meeting->duration);
+    deleteHour(meeting->hourMeeting);
+    free(meeting);
+}
+
+void deleteMeetingNode(meetingNode *m) {
+    deleteMeetings(&m->meeting);
+    m->next = NULL;
 }
 
 void deleteAgenda(AgendaEntry *agenda) {
     deleteContact(&agenda->contact);
-    deleteMeetings(agenda->meetings);
+    agenda->next = NULL;
+    free(agenda);
 }
 
-AgendaEntry *createAgendaEntry(Contact contact, Meeting *meetings, int nbMeetings) {
+AgendaEntry *createAgendaEntry(Contact contact) {
     AgendaEntry *agendaEntry = (AgendaEntry *) malloc(sizeof(AgendaEntry));
     agendaEntry->contact = contact;
-    agendaEntry->meetings = (Meeting **) malloc(nbMeetings * sizeof(Meeting *));
-    for (int i = 0; i < nbMeetings; i++) {
-        agendaEntry->meetings[i] = NULL;
-    }
+    agendaEntry->next = NULL;
     return agendaEntry;
 }
