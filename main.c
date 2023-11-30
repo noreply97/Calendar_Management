@@ -1,7 +1,7 @@
 #include "contactandrdv.h"
 
 int main() {
-    Meeting *meeting = createMeeting();
-    displayMeeting(meeting);
+    List *list = createListOfNLevel(3);
+    displayAllList(list);
     return 0;
 }

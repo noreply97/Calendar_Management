@@ -22,27 +22,6 @@ void addCellToHeadList(Cell *cell, List *list) {
     }
 }
 
-void displayListCellsFromLevel(List list, int level) {
-    if (level >= 1 && level <= list.max_level) {
-        printf("[list head_%d @-]-->", level - 1);
-        Cell *currentCell = list.heads[level - 1];
-        while (currentCell != NULL) {
-            printf("[%d|@-]-->", currentCell->value);
-            currentCell = currentCell->nexts[level - 1];
-        }
-        printf("NULL");
-    } else {
-        return;
-    }
-}
-
-void displayAllCellsFromList(List list) {
-    for (int i = 0; i <= list.max_level; i++) {
-        displayListCellsFromLevel(list, i);
-        printf("\n");
-    }
-}
-
 void addCellToList(List *list, Cell *cell) {
     if (list->heads == NULL) {
         addCellToHeadList(cell, list);
@@ -95,3 +74,20 @@ List *createListOfNLevel(int n) {
     return list;
 }
 
+void displayListLevel(List list, int nbLevel) {
+    printf("[list head_%d @-]", nbLevel);
+    Cell *currentCell = list.heads[0];
+    while (currentCell != NULL) {
+        printf("--");
+        displayCellLevel(currentCell, nbLevel);
+        currentCell = currentCell->nexts[0];
+    }
+    printf("-->NULL\n");
+}
+
+void displayAllList(List *list) {
+    for (int i = 0; i < list->max_level; ++i) {
+        displayListLevel(*list, i + 1);
+    }
+    printf("\n");
+}

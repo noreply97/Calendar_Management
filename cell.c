@@ -21,3 +21,19 @@ void deleteCell(Cell *cell) {
     free(cell);
 }
 
+void displayCell(Cell *cell) {
+    printf(">[ %4d|@ ]", cell->value);
+}
+
+void displayEmptyCell() {
+    printf("-----------");
+}
+
+void displayCellLevel(Cell *cell, int level) {
+    if (level <= cell->max_level) {
+        displayCell(cell);
+    } else {
+        displayEmptyCell();
+    }
+}
+
