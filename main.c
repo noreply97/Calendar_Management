@@ -1,7 +1,6 @@
 #include "contactandrdv.h"
 
 int main() {
-    List *list = createListOfNLevel(3);
-    displayAllList(list);
+    complexityTest(7, 17);
     return 0;
 }
