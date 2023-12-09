@@ -14,7 +14,7 @@ char *scanStringGestion() {
     char *result = strdup(buffer); // alloue espace pour result et copie le contenu du buffer dans cette nouvelle chaîne
     return result;
 }
-test
+
 Contact *createContact() {
     Contact *contact = (Contact *) malloc(sizeof(Contact));
     printf("Please enter your first name : ");
