@@ -14,8 +14,8 @@ char *scanStringGestion() {
     char *result = strdup(buffer); // alloue espace pour result et copie le contenu du buffer dans cette nouvelle chaîne
     return result;
 }
-
-Contact *createContact() { //!!!Ne devrait pas prendre un agenda en paramètres pour ajouter le contact a lagenda ?;
+test
+Contact *createContact() {
     Contact *contact = (Contact *) malloc(sizeof(Contact));
     printf("Please enter your first name : ");
     contact->first_name = scanStringGestion();
