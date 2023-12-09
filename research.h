@@ -8,9 +8,9 @@
 
 void classicSearch(List *, int); // Recherche une valeur dans la liste au niveau 0
 
-int isAtLevelN(List *, int, int); // Détermine si une valeur est présente à un niveau donnée
+int isAtLevelN(List *, int, int); // Recherche si une valeur est présente à un niveau donné
 
-void searchFromLevelN(List *, int, int); // Recherche une valeur dans la liste à un niveau donnée
+void searchFromLevelN(List *, int, int); // Recherche une valeur dans la liste au niveau donné et aux niveaux inférieurs
 
 void optimalSearchFromLevelMax(List *, int); // Recherche dichotomique de la valeur dans la liste à partir du niveau max
 

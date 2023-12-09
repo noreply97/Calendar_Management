@@ -8,5 +8,4 @@
 int *createTab(int); // Crée un tableau à partir d'un n donnée
 int rankDivideBy2(int value); // Calcule le nombre de fois qu'une valeur est divisible par 2
 
-
 #endif //CALENDAR_MANAGEMENT_TAB_H

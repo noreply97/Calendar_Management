@@ -15,7 +15,7 @@ char *scanString(void) {
     return result;
 }
 
-char *contactDatasToSimpleString(char *firstname, char *lastname) {
+char* contactDatasToSimpleString(char *firstname, char *lastname) {
     if (firstname == NULL || lastname == NULL) {
         return NULL;
     }
@@ -29,7 +29,6 @@ char *contactDatasToSimpleString(char *firstname, char *lastname) {
 }
 
 void rechercherContact(AgendaEntry *agenda, char *partialName, int niveau) {
-
     if (agenda == NULL) {
         printf("No contact found.\n");
         return;

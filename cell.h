@@ -17,10 +17,11 @@ typedef struct Cell {
 Cell *createCell(int, int); // Alloue dynamiquement de la mémoire à une cellule à partir d'une valeur donnée
 
 void deleteCell(Cell *cell); // Libère la mémoire allouée à la cellule
-void displayCell(Cell *cell);
 
-void displayEmptyCell();
+void displayCell(Cell *cell); // Afficher une seule cellule
 
-void displayCellLevel(Cell *cell, int level);
+void displayEmptyCell(); // Afficher des "-" lorsque la cellule est vide
+
+void displayCellLevel(Cell *cell, int level); // Afficher un niveau de cellules aligné avec les autres niveaux
 
 #endif //CALENDAR_MANAGEMENT_CELL_H

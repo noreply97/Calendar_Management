@@ -13,11 +13,11 @@ void classicSearch(List *list, int val) {  // Recherche au niveau 0
     if (temp != NULL && temp->value == val) {
         //printf("%d found at level 0\n", val);
     } else {
-        printf("%d not found at level 0\n", val);
+        //printf("%d not found at level 0\n", val);
     }
 }
 
-int isAtLevelN(List *list, int val, int level) {  // Recherche dans tous les niveaux en partant du plus haut
+int isAtLevelN(List *list, int val, int level) {  // Permet de savoir si la valeur se trouve sur un niveau précis
     if (level <= list->max_level) {
         Cell *temp = list->heads[level - 1];
         while (temp != NULL && temp->value != val) {
@@ -33,7 +33,7 @@ int isAtLevelN(List *list, int val, int level) {  // Recherche dans tous les niv
     }
 }
 
-void searchFromLevelN(List *list, int val, int level) {
+void searchFromLevelN(List *list, int val, int level) { //Rechercher à partir d'un niveau précis (lui et tous les niveaux en dessous)
     if (level <= list->max_level) {
         if (level == 0) {
             classicSearch(list, val);
@@ -49,7 +49,7 @@ void searchFromLevelN(List *list, int val, int level) {
     }
 }
 
-void optimalSearchFromLevelMax(List *list, int val) {
+void optimalSearchFromLevelMax(List *list, int val) { //Recherche dichotomique
     unsigned short alwaysAtHead = 1;
     Cell *temp = list->heads[list->max_level - 1];
     while (list->max_level > 0 && temp->value != val) {

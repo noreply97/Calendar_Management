@@ -5,7 +5,7 @@
 #include "cell.h"
 #include <stdlib.h>
 
-Cell *createCell(int val, int nbLevels) {
+Cell *createCell(int val, int nbLevels) { //créer une cellule
     Cell *cell = (Cell *) malloc(sizeof(Cell));
     cell->value = val;
     cell->max_level = nbLevels;
@@ -16,20 +16,20 @@ Cell *createCell(int val, int nbLevels) {
     return cell;
 }
 
-void deleteCell(Cell *cell) {
+void deleteCell(Cell *cell) { //supprimer une cellule
     free(cell->nexts);
     free(cell);
 }
 
-void displayCell(Cell *cell) {
+void displayCell(Cell *cell) { //afficher une cellule
     printf(">[ %4d|@ ]", cell->value);
 }
 
-void displayEmptyCell() {
+void displayEmptyCell() { //afficher des '-' si une cellule est vide
     printf("-----------");
 }
 
-void displayCellLevel(Cell *cell, int level) {
+void displayCellLevel(Cell *cell, int level) { //permet d'afficher une cellule vide ou pas
     if (level <= cell->max_level) {
         displayCell(cell);
     } else {

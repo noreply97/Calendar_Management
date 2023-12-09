@@ -8,13 +8,14 @@
 
 char *scanStringGestion() {
     char buffer[256];
-    fgets(buffer, sizeof(buffer), stdin);
-    buffer[strcspn(buffer, "\n")] = '\0';
-    char *result = strdup(buffer);
+    fgets(buffer, sizeof(buffer), stdin); //Utilise la fonction fgets pour lire une ligne de texte à
+    // partir de l'entrée standard (stdin) et la stocke dans le tableau
+    buffer[strcspn(buffer, "\n")] = '\0'; // supprime le caractère de saut de ligne
+    char *result = strdup(buffer); // alloue espace pour result et copie le contenu du buffer dans cette nouvelle chaîne
     return result;
 }
 
-Contact *createContact() {
+Contact *createContact() { //!!!Ne devrait pas prendre un agenda en paramètres pour ajouter le contact a lagenda ?;
     Contact *contact = (Contact *) malloc(sizeof(Contact));
     printf("Please enter your first name : ");
     contact->first_name = scanStringGestion();
@@ -30,7 +31,7 @@ Date *createDate() {
     scanf("%d", &date->day);
     printf("\n");
     while ((date->day < 0) || (date->day > 31)) {
-        printf("Please enter the day of your meeting between 0 and 31 : ");
+        printf("Please enter a number between 0 and 31 : ");
         scanf("%d", &date->day);
         printf("\n");
     }
@@ -38,7 +39,7 @@ Date *createDate() {
     scanf("%d", &date->month);
     printf("\n");
     while ((date->month < 0) || (date->month > 12)) {
-        printf("Please enter the month of your meeting between 0 and 12 : ");
+        printf("Please enter a number between 0 and 12 : ");
         scanf("%d", &date->month);
         printf("\n");
     }
@@ -46,7 +47,7 @@ Date *createDate() {
     scanf("%d", &date->year);
     printf("\n");
     while (date->year < 2023) {
-        printf("Please enter the year beyond 2023 : ");
+        printf("Please enter a number beyond 2023 : ");
         scanf("%d", &date->year);
         printf("\n");
     }
@@ -59,7 +60,7 @@ Time *createHour() {
     scanf("%d", &time->hour);
     printf("\n");
     while ((time->hour > 24) || (time->hour < 0)) {
-        printf("Please enter the hour between 0 and 24 : ");
+        printf("Please enter an number between 0 and 24 : ");
         scanf("%d", &time->hour);
         printf("\n");
     }
@@ -67,7 +68,7 @@ Time *createHour() {
     scanf("%d", &time->minutes);
     printf("\n");
     while ((time->minutes > 60) || (time->minutes < 0)) {
-        printf("Please enter the minutes between 0 et 60 : ");
+        printf("Please enter a number between 0 and 60 : ");
         scanf("%d", &time->minutes);
         printf("\n");
     }
@@ -75,16 +76,14 @@ Time *createHour() {
 }
 
 Meeting *createMeeting() {
-    Meeting *meeting = (Meeting *) malloc(sizeof(Meeting));
+    Meeting *meeting = (Meeting *)malloc(sizeof(Meeting));
     meeting->date = createDate();
     printf("You will enter the duration of the meeting.\n");
     meeting->duration = createHour();
-    printf("You will enter the hour of the start of the meeting .\n");
+    printf("You will enter the hour of the start of the meeting.\n");
     meeting->hourMeeting = createHour();
     printf("Enter the topic of the meeting in one word : \n");
-    meeting->topic = (char *) malloc(256 * sizeof(char));
-    char *topic = scanStringGestion();
-    meeting->topic = topic;
+    meeting->topic = scanStringGestion(); //!!!!ERREUR;
     return meeting;
 }
 
@@ -102,7 +101,7 @@ void deleteHour(Time *time) {
     free(time);
 }
 
-void deleteMeetings(Meeting *meeting) {
+void deleteMeeting(Meeting *meeting) {
     deleteDate(meeting->date);
     deleteHour(meeting->duration);
     deleteHour(meeting->hourMeeting);
@@ -110,7 +109,7 @@ void deleteMeetings(Meeting *meeting) {
 }
 
 void deleteMeetingNode(meetingNode *m) {
-    deleteMeetings(&m->meeting);
+    deleteMeeting(&m->meeting);
     m->next = NULL;
 }
 
