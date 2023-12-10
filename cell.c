@@ -16,7 +16,7 @@ Cell *createCell(int val, int nbLevels) { //créer une cellule
     return cell;
 }
 
-void deleteCell(Cell *cell) { //supprimer une cellule
+void freeCell(Cell *cell) { //supprimer une cellule
     free(cell->nexts);
     free(cell);
 }

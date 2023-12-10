@@ -16,7 +16,7 @@ typedef struct Cell {
 
 Cell *createCell(int, int); // Alloue dynamiquement de la mémoire à une cellule à partir d'une valeur donnée
 
-void deleteCell(Cell *cell); // Libère la mémoire allouée à la cellule
+void freeCell(Cell *cell); // Libère la mémoire allouée à la cellule
 
 void displayCell(Cell *cell); // Afficher une seule cellule
 
