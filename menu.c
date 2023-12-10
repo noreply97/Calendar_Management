@@ -17,10 +17,9 @@ void displayMenu() {
         printf("3. Create a new contact\n");
         printf("4. Create a new meeting for a contact\n");
         printf("5. Cancel a meeting\n");
-        printf("6. Save the file of all the meetings\n");
-        printf("7. Exit\n");
+        printf("6. Exit\n");
         int res = 0;
-        while (res < 1 || res > 7) {
+        while (res < 1 || res > 6) {
             scanf("%d", &res);
         }
         switch (res) {
@@ -115,9 +114,6 @@ void displayMenu() {
                 break;
 
             case 6:
-                printf("Vous avez choisi l'option 6.\n");
-                break;
-            case 7:
                 printf("The program is going to shut in five seconds.\n");
                 sleep(5);
                 return;
