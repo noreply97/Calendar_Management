@@ -3,7 +3,7 @@
 //
 #include "list.h"
 
-List *createList(int nbLevels) { //initialiser une liste de nbLevels niveaux
+List *createList(int nbLevels) {
     List *list = (List *) malloc(sizeof(List));
     list->max_level = nbLevels;
     list->heads = (Cell **) malloc(nbLevels * sizeof(Cell *));
@@ -13,7 +13,7 @@ List *createList(int nbLevels) { //initialiser une liste de nbLevels niveaux
     return list;
 }
 
-void addCellToHeadList(Cell *cell, List *list) { //ajouter une cellule en tête de liste
+void addCellToHeadList(Cell *cell, List *list) {
     for (int i = 0; i < cell->max_level; i++) {
         cell->nexts[i] = list->heads[i];
     }
@@ -22,7 +22,7 @@ void addCellToHeadList(Cell *cell, List *list) { //ajouter une cellule en tête 
     }
 }
 
-void addCellToList(List *list, Cell *cell) { //ajouter une cellule au bon endroit dans une liste triée
+void addCellToList(List *list, Cell *cell) {
     if (list->heads == NULL) {
         addCellToHeadList(cell, list);
         return;
@@ -41,8 +41,7 @@ void addCellToList(List *list, Cell *cell) { //ajouter une cellule au bon endroi
         cell->nexts[0] = current;
     }
 
-    for (int currentLevel = 1; currentLevel < cell->max_level; currentLevel++) { //boucle qui répète la fonction pour
-        // les niveaux supérieurs si nécessaire
+    for (int currentLevel = 1; currentLevel < cell->max_level; currentLevel++) {
         current = list->heads[currentLevel];
         prev = NULL;
 
@@ -60,9 +59,9 @@ void addCellToList(List *list, Cell *cell) { //ajouter une cellule au bon endroi
     }
 }
 
-List *createListOfNLevel(int n) { //créer une liste de n niveaux à l'aide d'un tableau de (2^n)-1 éléments
+List *createListOfNLevel(int n) {
     while (n <= 0) {
-        printf("N must be higher than 0 !\n");
+        printf("N must be bigger than 0 !");
         scanf("%d", &n);
     }
     int *levels = createTab(n);
@@ -75,7 +74,7 @@ List *createListOfNLevel(int n) { //créer une liste de n niveaux à l'aide d'un
     return list;
 }
 
-void displayListLevel(List list, int nbLevel) { // Permet d'afficher un niveau aligné
+void displayListLevel(List list, int nbLevel) {
     printf("[list head_%d @-]", nbLevel);
     Cell *currentCell = list.heads[0];
     while (currentCell != NULL) {
@@ -86,7 +85,7 @@ void displayListLevel(List list, int nbLevel) { // Permet d'afficher un niveau a
     printf("-->NULL\n");
 }
 
-void displayAllList(List *list) { //Permet d'afficher tous les niveaux de la liste alignés
+void displayAllList(List *list) {
     for (int i = 0; i < list->max_level; ++i) {
         displayListLevel(*list, i + 1);
     }

@@ -27,13 +27,8 @@ int main() {
     AgendaCell* cell2 = createAgendaCell(*entry2);
     addAgendaCellToAgendaList(list, cell2);
     displayAllAgendaList(*list);
-
-
-    //classicAgendaSearch(list, "chab");*/
-
+    */
     displayMenu();
-
-
 
     return 0;
 }

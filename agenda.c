@@ -9,11 +9,12 @@
 
 Contact *createContact() { // Alloue de la mémoire dynamiquement à une variable date
     Contact *contact = (Contact *) malloc(sizeof(Contact));
-    printf("Entrez votre prénom : \n");
+    printf("Fill your first name : \n");
     contact->first_name = scanStringGestion();
-    printf("Entrez votre nom : \n");
+    printf("Fill your last name : \n");
     contact->last_name = scanStringGestion();
     contact->meetingList = NULL;
+    printf("Contact added \n");
     return contact;
 }
 
@@ -25,27 +26,27 @@ void freeContact(Contact *contact) {
 
 Date *createDate() {
     Date *date = (Date *) malloc(sizeof(Date));
-    printf("Entrez le jour de votre rendez-vous : ");
+    printf("Enter the day date of the meeting : ");
     scanf("%d", &date->day);
     printf("\n");
     while ((date->day < 0) || (date->day > 31)) {
-        printf("Entrez une date situee entre le 1 et le 31 : ");
+        printf("Enter a date between 1 and 31 : ");
         scanf("%d", &date->day);
         printf("\n");
     }
-    printf("Entrez le mois de votre rendez-vous : ");
+    printf("Enter the month : ");
     scanf("%d", &date->month);
     printf("\n");
     while ((date->month < 0) || (date->month > 12)) {
-        printf("Il doit s'agir d'un chiffre entre 1 et 12 : ");
+        printf("Must be between 1 and 12 : ");
         scanf("%d", &date->month);
         printf("\n");
     }
-    printf("Entrez l'annee de votre rendez-vous : ");
+    printf("Enter the year : ");
     scanf("%d", &date->year);
     printf("\n");
     while (date->year < 2023) {
-        printf("Il faut un numéro supérieur ou égal a 2023 : ");
+        printf("Must be at least the current year so 2023 : ");
         scanf("%d", &date->year);
         printf("\n");
     }
@@ -84,11 +85,11 @@ void freeHour(Time *time) {
 Meeting *createMeeting() {
     Meeting *meeting = (Meeting *)malloc(sizeof(Meeting));
     meeting->date = createDate();
-    printf("Entrez la duree du rendez-vous.\n");
+    printf("Enter the duration of the meeting.\n");
     meeting->duration = createHour();
-    printf("Entrez l'heure de depart du rendez-vous.\n");
+    printf("Enter the hour at which the meeting starts.\n");
     meeting->hourMeeting = createHour();
-    printf("Entrez le sujet du rendez-vous en un mot");
+    printf("Enter the topic of the meeting in one word : \n");
     meeting->topic = scanStringGestion();
     printf("\n");
     return meeting;
@@ -189,9 +190,22 @@ void classicAgendaSearch(AgendaList *list, char* string) {  // Recherche au nive
         temp = temp->nexts[0];
     }
     if (temp != NULL && strcmp(temp->agendaEntry.contact.last_name,string) == 0) {
-        printf("%s found at level 0\n", string);
+        printf("The contact %s has been found at level 0\n", string);
     } else {
-        printf("%s not found at level 0\n", string);
+        printf("The contact %s has not been found at level 0\n", string);
+    }
+}
+
+Contact *classicAgendaSearchContact (AgendaList *list, char* string) {  // Recherche au niveau 0
+    AgendaCell *temp = list->heads[0];
+    while (temp != NULL && strcmp(temp->agendaEntry.contact.last_name,string) != 0) {
+        temp = temp->nexts[0];
+    }
+    if (temp != NULL && strcmp(temp->agendaEntry.contact.last_name,string) == 0) {
+        return &(temp->agendaEntry.contact);
+    } else {
+        printf("The contact %s has not been found at level 0\n", string);
+        return NULL;
     }
 }
 
@@ -248,4 +262,22 @@ void addAgendaCellToAgendaList(AgendaList *list, AgendaCell *cell) { //ajouter u
     }
 }
 
+meetingNode* createMeetingNode(Meeting* meeting){
+    meetingNode* meetingN=(meetingNode*)malloc(sizeof (meetingNode));
+    meetingN->next=NULL;
+    meetingN->meeting=meeting;
+    return meetingN;
+}
 
+void addMeetingToContact(Contact* contact, Meeting* meeting){
+    meetingNode* meetingN=createMeetingNode(meeting);
+    if(contact->meetingList==NULL){
+        contact->meetingList=meetingN;
+    } else {
+        meetingNode* temp=contact->meetingList;
+        while(temp->next!=NULL){
+            temp=temp->next;
+        }
+        temp->next=meetingN;
+    }
+}

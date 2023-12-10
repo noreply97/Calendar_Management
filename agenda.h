@@ -24,7 +24,7 @@ typedef struct Meeting {
 } Meeting;
 
 typedef struct MeetingNode {
-    Meeting meeting;
+    Meeting* meeting;
     struct MeetingNode *next;
 } meetingNode;
 
@@ -74,6 +74,9 @@ AgendaEntry *createAgendaEntry(Contact); // Alloue de la mémoire dynamiquement 
 void freeAgenda(AgendaEntry *); // Libère la mémoire allouée à une variable agenda
 AgendaCell *createAgendaCell(AgendaEntry); //créer une cellule
 AgendaList* createAgendaList();
+Contact *classicAgendaSearchContact(AgendaList *list, char* string);// Cherche un contact et le renvoie
+void addMeetingToContact(Contact* contact, Meeting* meeting);
+meetingNode* createMeetingNode(Meeting* meeting);
 
 
 #endif //CALENDAR_MANAGEMENT_AGENDA_H
