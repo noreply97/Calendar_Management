@@ -281,3 +281,28 @@ void addMeetingToContact(Contact* contact, Meeting* meeting){
         temp->next=meetingN;
     }
 }
+
+AgendaList* createListFromFile(char* txtfile1, char* txtfile2) {
+    FILE* first_Names = fopen(txtfile1, "r");
+    FILE* last_Names = fopen(txtfile2, "r");
+    AgendaList* agendaList = createAgendaList();
+
+    char firstName[256];
+    char lastName[256];
+
+    while(fgets(firstName, sizeof(firstName), first_Names) != NULL && fgets(lastName,sizeof(lastName),last_Names) != NULL){
+        firstName[strcspn(firstName, "\n")] = '\0'; //retirer le \n à chaque fin de ligne
+        lastName[strcspn(lastName, "\n")] = '\0';
+
+        Contact* newContact = (Contact*)malloc(sizeof(Contact));
+        newContact->first_name = strdup(firstName);
+        newContact->last_name = strdup(lastName);
+
+        AgendaEntry* newEntry = createAgendaEntry(*newContact);
+        AgendaCell* newCell = createAgendaCell(*newEntry);
+        addAgendaCellToAgendaList(agendaList, newCell);
+    }
+    fclose(first_Names);
+    fclose(last_Names);
+    return agendaList;
+}

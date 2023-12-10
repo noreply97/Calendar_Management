@@ -77,6 +77,6 @@ AgendaList* createAgendaList();
 Contact *classicAgendaSearchContact(AgendaList *list, char* string);// Cherche un contact et le renvoie
 void addMeetingToContact(Contact* contact, Meeting* meeting);
 meetingNode* createMeetingNode(Meeting* meeting);
-
+AgendaList* createListFromFile(char* txtfile1, char* txtfile2);
 
 #endif //CALENDAR_MANAGEMENT_AGENDA_H

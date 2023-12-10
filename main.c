@@ -28,6 +28,10 @@ int main() {
     addAgendaCellToAgendaList(list, cell2);
     displayAllAgendaList(*list);
     */
+    char* txtfile1 = "C:\\Users\\Utilisateur\\Calendar_Management\\first_name.txt";
+    char* txtfile2 = "C:\\Users\\Calendar_Management\\last_name.txt";
+    AgendaList* list = createListFromFile(txtfile1, txtfile2);
+
     displayMenu();
 
     return 0;
