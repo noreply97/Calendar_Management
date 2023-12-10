@@ -59,19 +59,19 @@ void freeDate(Date *date) { // Libère la mémoire allouée à une variable date
 
 Time *createHour() {
     Time *time = (Time *) malloc(sizeof(Time));
-    printf("Entrez l'heure du rendez-vous : ");
+    printf("Enter the hour : ");
     scanf("%d", &time->hour);
     printf("\n");
     while ((time->hour > 24) || (time->hour < 0)) {
-        printf("Entrez un numéro entre 0 et 24 : ");
+        printf("Must be between 0 and 24 : ");
         scanf("%d", &time->hour);
         printf("\n");
     }
-    printf("Entrez les minutes de l'heure : ");
+    printf("Enter the minutes : ");
     scanf("%d", &time->minutes);
     printf("\n");
     while ((time->minutes > 60) || (time->minutes < 0)) {
-        printf("Entrez un numéro entre 0 et 60 : ");
+        printf("Must be between 0 and 60 : ");
         scanf("%d", &time->minutes);
         printf("\n");
     }
@@ -83,7 +83,7 @@ void freeHour(Time *time) {
 }
 
 Meeting *createMeeting() {
-    Meeting *meeting = (Meeting *)malloc(sizeof(Meeting));
+    Meeting *meeting = (Meeting *) malloc(sizeof(Meeting));
     meeting->date = createDate();
     printf("Enter the duration of the meeting.\n");
     meeting->duration = createHour();
@@ -103,7 +103,7 @@ void freeMeeting(Meeting *meeting) {
 }
 
 void freeMeetingNode(meetingNode *m) {
-    freeMeeting(&m->meeting);
+    freeMeeting(m->meeting);
     m->next = NULL;
 }
 
@@ -135,14 +135,14 @@ AgendaCell *createAgendaCell(AgendaEntry entry) { //créer une cellule
 AgendaList *createAgendaList() { //initialiser une liste d'agendas de 4 niveaux
     AgendaList *list = (AgendaList *) malloc(sizeof(AgendaList));
     list->max_level = 4;
-    list->heads = (AgendaCell **) malloc(list->max_level * sizeof(AgendaCell*));
+    list->heads = (AgendaCell **) malloc(list->max_level * sizeof(AgendaCell *));
     for (int i = 0; i < list->max_level; i++) {
         list->heads[i] = NULL;
     }
     return list;
 }
 
-void displayAgendaCell(AgendaCell* cell) { //afficher une cellule
+void displayAgendaCell(AgendaCell *cell) { //afficher une cellule
     printf("[%s %s|@]", cell->agendaEntry.contact.last_name, cell->agendaEntry.contact.first_name);
 }
 
@@ -177,31 +177,31 @@ void displayAllAgendaList(AgendaList list) { //Permet d'afficher tous les niveau
 }
 
 
-void addCellToHeadAgendaList(AgendaList* list, AgendaCell* cell){
+void addCellToHeadAgendaList(AgendaList *list, AgendaCell *cell) {
     for (int i = 0; i < list->max_level; i++) {
         cell->nexts[i] = list->heads[i];
         list->heads[i] = cell;
     }
 }
 
-void classicAgendaSearch(AgendaList *list, char* string) {  // Recherche au niveau 0
+void classicAgendaSearch(AgendaList *list, char *string) {  // Recherche au niveau 0
     AgendaCell *temp = list->heads[0];
-    while (temp != NULL && strcmp(temp->agendaEntry.contact.last_name,string) != 0) {
+    while (temp != NULL && strcmp(temp->agendaEntry.contact.last_name, string) != 0) {
         temp = temp->nexts[0];
     }
-    if (temp != NULL && strcmp(temp->agendaEntry.contact.last_name,string) == 0) {
+    if (temp != NULL && strcmp(temp->agendaEntry.contact.last_name, string) == 0) {
         printf("The contact %s has been found at level 0\n", string);
     } else {
         printf("The contact %s has not been found at level 0\n", string);
     }
 }
 
-Contact *classicAgendaSearchContact (AgendaList *list, char* string) {  // Recherche au niveau 0
+Contact *classicAgendaSearchContact(AgendaList *list, char *string) {  // Recherche au niveau 0
     AgendaCell *temp = list->heads[0];
-    while (temp != NULL && strcmp(temp->agendaEntry.contact.last_name,string) != 0) {
+    while (temp != NULL && strcmp(temp->agendaEntry.contact.last_name, string) != 0) {
         temp = temp->nexts[0];
     }
-    if (temp != NULL && strcmp(temp->agendaEntry.contact.last_name,string) == 0) {
+    if (temp != NULL && strcmp(temp->agendaEntry.contact.last_name, string) == 0) {
         return &(temp->agendaEntry.contact);
     } else {
         printf("The contact %s has not been found at level 0\n", string);
@@ -210,7 +210,7 @@ Contact *classicAgendaSearchContact (AgendaList *list, char* string) {  // Reche
 }
 
 
-char* scanStringGestion() { // Permet la saisie d'une chaîne de caractère dans la console
+char *scanStringGestion() { // Permet la saisie d'une chaîne de caractère dans la console
     char string[256];
     scanf("%s", string);
     size_t length = strlen(string);
@@ -224,14 +224,16 @@ char* scanStringGestion() { // Permet la saisie d'une chaîne de caractère dans
     return buffer;
 }
 
-void addAgendaCellToAgendaList(AgendaList *list, AgendaCell *cell) { //ajouter une cellule au bon endroit dans une liste triée
+void addAgendaCellToAgendaList(AgendaList *list,
+                               AgendaCell *cell) { //ajouter une cellule au bon endroit dans une liste triée
     if (list->heads == NULL) {
         addCellToHeadAgendaList(list, cell);
         return;
     }
     AgendaCell *current = list->heads[0];
     AgendaCell *prev = NULL;
-    while (current != NULL && (strcmp(current->agendaEntry.contact.last_name,cell->agendaEntry.contact.last_name) < 0)){
+    while (current != NULL &&
+           (strcmp(current->agendaEntry.contact.last_name, cell->agendaEntry.contact.last_name) < 0)) {
         prev = current;
         current = current->nexts[0];
     }
@@ -248,7 +250,8 @@ void addAgendaCellToAgendaList(AgendaList *list, AgendaCell *cell) { //ajouter u
         current = list->heads[currentLevel];
         prev = NULL;
 
-        while ((current != NULL) && (strcmp(current->agendaEntry.contact.last_name,cell->agendaEntry.contact.last_name) < 0)) {
+        while ((current != NULL) &&
+               (strcmp(current->agendaEntry.contact.last_name, cell->agendaEntry.contact.last_name) < 0)) {
             prev = current;
             current = current->nexts[currentLevel];
         }
@@ -262,47 +265,76 @@ void addAgendaCellToAgendaList(AgendaList *list, AgendaCell *cell) { //ajouter u
     }
 }
 
-meetingNode* createMeetingNode(Meeting* meeting){
-    meetingNode* meetingN=(meetingNode*)malloc(sizeof (meetingNode));
-    meetingN->next=NULL;
-    meetingN->meeting=meeting;
+meetingNode *createMeetingNode(Meeting *meeting) {
+    meetingNode *meetingN = (meetingNode *) malloc(sizeof(meetingNode));
+    meetingN->next = NULL;
+    meetingN->meeting = meeting;
     return meetingN;
 }
 
-void addMeetingToContact(Contact* contact, Meeting* meeting){
-    meetingNode* meetingN=createMeetingNode(meeting);
-    if(contact->meetingList==NULL){
-        contact->meetingList=meetingN;
+void addMeetingToContact(Contact *contact, Meeting *meeting) {
+    meetingNode *meetingN = createMeetingNode(meeting);
+    if (contact->meetingList == NULL) {
+        contact->meetingList = meetingN;
     } else {
-        meetingNode* temp=contact->meetingList;
-        while(temp->next!=NULL){
-            temp=temp->next;
+        meetingNode *temp = contact->meetingList;
+        while (temp->next != NULL) {
+            temp = temp->next;
         }
-        temp->next=meetingN;
+        temp->next = meetingN;
     }
 }
 
-AgendaList* createListFromFile(char* txtfile1, char* txtfile2) {
-    FILE* first_Names = fopen(txtfile1, "r");
-    FILE* last_Names = fopen(txtfile2, "r");
-    AgendaList* agendaList = createAgendaList();
+AgendaList *createListFromFile(char *txtfile1, char *txtfile2) {
+    FILE *first_Names = fopen(txtfile1, "r");
+    FILE *last_Names = fopen(txtfile2, "r");
+    AgendaList *agendaList = createAgendaList();
 
     char firstName[256];
     char lastName[256];
 
-    while(fgets(firstName, sizeof(firstName), first_Names) != NULL && fgets(lastName,sizeof(lastName),last_Names) != NULL){
+    while (fgets(firstName, sizeof(firstName), first_Names) != NULL &&
+           fgets(lastName, sizeof(lastName), last_Names) != NULL) {
         firstName[strcspn(firstName, "\n")] = '\0'; //retirer le \n à chaque fin de ligne
         lastName[strcspn(lastName, "\n")] = '\0';
 
-        Contact* newContact = (Contact*)malloc(sizeof(Contact));
+        Contact *newContact = (Contact *) malloc(sizeof(Contact));
         newContact->first_name = strdup(firstName);
         newContact->last_name = strdup(lastName);
 
-        AgendaEntry* newEntry = createAgendaEntry(*newContact);
-        AgendaCell* newCell = createAgendaCell(*newEntry);
+        AgendaEntry *newEntry = createAgendaEntry(*newContact);
+        AgendaCell *newCell = createAgendaCell(*newEntry);
         addAgendaCellToAgendaList(agendaList, newCell);
     }
     fclose(first_Names);
     fclose(last_Names);
     return agendaList;
+}
+
+int compareTwoMeetings(Meeting *meeting1, Meeting *meeting2) {
+    if (meeting1->topic != meeting2->topic) {
+        return 0;
+    }
+    if (meeting1->duration->hour != meeting2->duration->hour) {
+        return 0;
+    }
+    if (meeting1->duration->minutes != meeting2->duration->minutes) {
+        return 0;
+    }
+    if (meeting1->hourMeeting->hour != meeting2->hourMeeting->hour) {
+        return 0;
+    }
+    if (meeting1->hourMeeting->minutes != meeting2->hourMeeting->minutes) {
+        return 0;
+    }
+    if (meeting1->date->day != meeting2->date->day) {
+        return 0;
+    }
+    if (meeting1->date->month != meeting2->date->month) {
+        return 0;
+    }
+    if (meeting1->date->year != meeting2->date->year) {
+        return 0;
+    }
+    return 1;
 }

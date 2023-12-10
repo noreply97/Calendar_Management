@@ -24,7 +24,7 @@ typedef struct Meeting {
 } Meeting;
 
 typedef struct MeetingNode {
-    Meeting* meeting;
+    Meeting *meeting;
     struct MeetingNode *next;
 } meetingNode;
 
@@ -34,7 +34,7 @@ typedef struct Contact {
     struct MeetingNode *meetingList;
 } Contact;
 
-typedef struct AgendaEntry{
+typedef struct AgendaEntry {
     Contact contact;
     struct AgendaEntry *next;
 } AgendaEntry;
@@ -50,16 +50,22 @@ typedef struct AgendaList {
     int max_level;
 } AgendaList;
 
-void displayAgendaCell(AgendaCell*);
+void displayAgendaCell(AgendaCell *);
+
 void displayEmptyAgendaCell();
-void displayAgendaCellLevel(AgendaCell*, int);
+
+void displayAgendaCellLevel(AgendaCell *, int);
+
 void displayAgendaListLevel(AgendaList, int);
+
 void displayAllAgendaList(AgendaList);
 
-void classicAgendaSearch(AgendaList*, char* );
-void addAgendaCellToAgendaList(AgendaList*, AgendaCell*);
+void classicAgendaSearch(AgendaList *, char *);
 
-void addCellToHeadAgendaList(AgendaList*, AgendaCell*);
+void addAgendaCellToAgendaList(AgendaList *, AgendaCell *);
+
+void addCellToHeadAgendaList(AgendaList *, AgendaCell *);
+
 char *scanStringGestion(); // Permet la saisie d'une chaîne de caractère
 Date *createDate(); // Alloue de la mémoire dynamiquement à une variable date
 void freeDate(Date *); // Libère la mémoire allouée à une variable date
@@ -68,15 +74,21 @@ void freeHour(Time *); // Libère la mémoire allouée à une variable hour
 Meeting *createMeeting(); // Alloue de la mémoire dynamiquement à une variable meeting
 void freeMeeting(Meeting *); // Libère la mémoire allouée à une variable meeting
 void freeMeetingNode(meetingNode *);
+
 Contact *createContact(); // Alloue de la mémoire dynamiquement à une variable contact
 void freeContact(Contact *); // Libère la mémoire allouée à une variable contact
 AgendaEntry *createAgendaEntry(Contact); // Alloue de la mémoire dynamiquement à une variable agenda
 void freeAgenda(AgendaEntry *); // Libère la mémoire allouée à une variable agenda
 AgendaCell *createAgendaCell(AgendaEntry); //créer une cellule
-AgendaList* createAgendaList();
-Contact *classicAgendaSearchContact(AgendaList *list, char* string);// Cherche un contact et le renvoie
-void addMeetingToContact(Contact* contact, Meeting* meeting);
-meetingNode* createMeetingNode(Meeting* meeting);
-AgendaList* createListFromFile(char* txtfile1, char* txtfile2);
+AgendaList *createAgendaList();
+
+Contact *classicAgendaSearchContact(AgendaList *list, char *string);// Cherche un contact et le renvoie
+void addMeetingToContact(Contact *contact, Meeting *meeting);
+
+meetingNode *createMeetingNode(Meeting *meeting);
+
+AgendaList *createListFromFile(char *txtfile1, char *txtfile2);
+
+int compareTwoMeetings(Meeting *meeting1, Meeting *meeting2);
 
 #endif //CALENDAR_MANAGEMENT_AGENDA_H
