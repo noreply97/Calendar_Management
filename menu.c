@@ -83,31 +83,18 @@ void displayMenu() {
                 break;
 
             case 5:
-                printf("What's the last name of the contact for whom you will cancel a meeting ?\n");
+                printf("Enter the last name of the contact you want to cancel the meeting : \n");
                 char *string3 = scanStringGestion();
-                Contact *temp2 = classicAgendaSearchContact(list, string3);
-                if (temp2 != NULL) {
-                    if (temp2->meetingList == NULL) {
-                        printf("This contact does not have any meetings registered\n");
+                Contact *contact2 = classicAgendaSearchContact(list, string3);
+                if (contact2 != NULL) {
+                    if (contact2->meetingList == NULL) {
+                        printf("No meetings registered. \n");
                         sleep(2);
                         break;
                     }
-                    meetingNode *currentTemp2 = temp2->meetingList;
-                    printf("Can you give me the date of the meeting you wish to cancel ?\n");
-                    Meeting *meeting2 = createMeeting();
-                    while (currentTemp2->next != NULL) {
-                        if (compareTwoMeetings(meeting2, currentTemp2->meeting)) {
-                            meetingNode *tempC = currentTemp2->next;
-                            currentTemp2->next = tempC->next;
-                            free(tempC);
-                            sleep(2);
-                            break;
-                        } else {
-                            currentTemp2 = currentTemp2->next;
-                        }
-                    }
-                    printf("None of the meetings registered are alike the one you tried to cancel. \n");
-                    sleep(3);
+                    Meeting *meetingToDelete = createMeeting();
+                    deleteMeeting(contact2, meetingToDelete);
+                    sleep(2);
                     break;
                 }
                 sleep(2);

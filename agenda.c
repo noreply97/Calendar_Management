@@ -312,29 +312,17 @@ AgendaList *createListFromFile(char *txtfile1, char *txtfile2) {
 }
 
 int compareTwoMeetings(Meeting *meeting1, Meeting *meeting2) {
-    if (meeting1->topic != meeting2->topic) {
-        return 0;
+    // Comparer les champs individuels
+    if (meeting1->date->day == meeting2->date->day &&
+        meeting1->date->month == meeting2->date->month &&
+        meeting1->date->year == meeting2->date->year &&
+        meeting1->duration->hour == meeting2->duration->hour &&
+        meeting1->duration->minutes == meeting2->duration->minutes &&
+        meeting1->hourMeeting->hour == meeting2->hourMeeting->hour &&
+        meeting1->hourMeeting->minutes == meeting2->hourMeeting->minutes &&
+        strcmp(meeting1->topic, meeting2->topic) == 0) {
+        return 1; // Les meetings sont égaux
+    } else {
+        return 0; // Les meetings ne sont pas égaux
     }
-    if (meeting1->duration->hour != meeting2->duration->hour) {
-        return 0;
-    }
-    if (meeting1->duration->minutes != meeting2->duration->minutes) {
-        return 0;
-    }
-    if (meeting1->hourMeeting->hour != meeting2->hourMeeting->hour) {
-        return 0;
-    }
-    if (meeting1->hourMeeting->minutes != meeting2->hourMeeting->minutes) {
-        return 0;
-    }
-    if (meeting1->date->day != meeting2->date->day) {
-        return 0;
-    }
-    if (meeting1->date->month != meeting2->date->month) {
-        return 0;
-    }
-    if (meeting1->date->year != meeting2->date->year) {
-        return 0;
-    }
-    return 1;
 }
