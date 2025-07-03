@@ -4,13 +4,26 @@
 
 #include "cell.h"
 
-struct Cell* createCell(int val, int nbLevels){
-    struct Cell* cell = (Cell*)malloc(sizeof(Cell));
-    cell->value = val;
-    cell->max_level = nbLevels;
-    return cell;
+Cell *createCell(int value, int nbLevel) {
+    Cell *mycell = (Cell *) malloc(sizeof(Cell));
+    mycell->value = value;
+    mycell->nbLevel = nbLevel;
+    mycell->nexts = (Cell **) malloc(sizeof(Cell*) * nbLevel);
+    for (int i = 0; i < nbLevel; i++) {
+        mycell->nexts[i] = NULL;
+    }
+    return mycell;
 }
 
-int getMaxLevel(Cell* cell){
-    return cell->max_level;
+void deleteCell(Cell *mycell) {
+    free(mycell);
+}
+
+void printCell(Cell* mycell){  // vérification pour la fonction cell
+    printf("%d",mycell->value);
+    for(int i=0;i<mycell->nbLevel;i++){
+        if (mycell->nexts[i]==NULL) {
+            printf("NULL");
+        }
+    }
 }
