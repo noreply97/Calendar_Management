@@ -1,5 +1,5 @@
-#include "Cell.h"
-#include "Level_List.h"
+#include "cell.h"
+#include "list.h"
 
 int main() {
     Level_list *mylist = createEmptyLevel_list(2);
